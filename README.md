@@ -1,7 +1,7 @@
 # Palautusrepositorio Part 0 – Diagrams
 
-0.4: New note (traditional web app)
-
+### 0.4: New note (traditional web app)
+```mermaid
 graph TD
     A[User writes a note] --> B[Clicks Save]
     B --> C[Browser sends POST /new_note]
@@ -10,9 +10,10 @@ graph TD
     E --> F[Browser reloads /notes]
     F --> G[Browser requests data.json]
     G --> H[Notes are rendered]
+```
 
-0.5: Single Page App
-
+### 0.5: Single Page App
+```mermaid
 graph TD
     A[User opens /spa] --> B[Browser loads HTML]
     B --> C[Browser loads CSS]
@@ -20,9 +21,10 @@ graph TD
     D --> E[spa.js requests data.json]
     E --> F[Server returns notes as JSON]
     F --> G[Notes rendered without page reload]
+```
 
-0.6: New note (SPA)
-
+### 0.6: New note (SPA)
+```mermaid
 graph TD
     A[User writes a note] --> B[Clicks Save]
     B --> C[spa.js prevents default form action]
@@ -31,3 +33,4 @@ graph TD
     E --> F[Server returns JSON response]
     F --> G[spa.js updates notes list]
     G --> H[DOM updates without reload]
+```
