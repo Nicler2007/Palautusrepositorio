@@ -1,16 +1,8 @@
-sequenceDiagram
-    participant browser
-    participant server
-
-    Note right of browser: Käyttäjä kirjoittaa muistiinpanon ja painaa Save
-
-    Note right of browser: spa.js estää lomakkeen oletustoiminnan (preventDefault)
-
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
-    activate server
-    Note right of server: Palvelin tallentaa muistiinpanon
-    server-->>browser: 201 Created (JSON vastauksena)
-    deactivate server
-
-    Note right of browser: JavaScript lisää uuden muistiinpanon lokaalisti
-    Note right of browser: DOM päivitetään ilman sivun uudelleenlatausta
+flowchart TD
+    A[Käyttäjä kirjoittaa muistiinpanon] --> B[Painaa Save]
+    B --> C[spa.js estää lomakkeen<br/>oletustoiminnan (preventDefault)]
+    C --> D[Selaimen lähettää POST<br/>/new_note_spa]
+    D --> E[Palvelin tallentaa<br/>muistiinpanon]
+    E --> F[Palvelin palauttaa<br/>201 Created + JSON]
+    F --> G[JavaScript lisää uuden<br/>muistiinpanon lokaalisti]
+    G --> H[DOM päivitetään<br/>ilman sivun uudelleenlatausta]
