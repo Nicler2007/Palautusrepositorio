@@ -1,39 +1,33 @@
-# Palautusrepositorio
+# Palautusrepositorio Part 0 – Diagrams
 
-sequenceDiagram
-    participant browser
-    participant server
+0.4: New note (traditional web app)
 
-    Note right of browser: Käyttäjä kirjoittaa tekstikenttään muistiinpanon ja painaa "Save"
+graph TD
+    A[User writes a note] --> B[Clicks Save]
+    B --> C[Browser sends POST /new_note]
+    C --> D[Server saves the note]
+    D --> E[Server responds with redirect]
+    E --> F[Browser reloads /notes]
+    F --> G[Browser requests data.json]
+    G --> H[Notes are rendered]
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-    activate server
-    Note right of server: Palvelin tallentaa muistiinpanon palvelimen muistiin
-    server-->>browser: HTTP 302 Redirect /exampleapp/notes
-    deactivate server
+0.5: Single Page App
 
-    Note right of browser: Selain seuraa uudelleenohjausta ja lataa sivun uudelleen
+graph TD
+    A[User opens /spa] --> B[Browser loads HTML]
+    B --> C[Browser loads CSS]
+    C --> D[Browser loads spa.js]
+    D --> E[spa.js requests data.json]
+    E --> F[Server returns notes as JSON]
+    F --> G[Notes rendered without page reload]
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
-    activate server
-    server-->>browser: HTML document
-    deactivate server
+0.6: New note (SPA)
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-    activate server
-    server-->>browser: CSS file
-    deactivate server
-
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
-    activate server
-    server-->>browser: JavaScript file
-    deactivate server
-
-    Note right of browser: JavaScript hakee päivitetyn muistiinpanodatan
-
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate server
-    server-->>browser: JSON (sisältää myös uuden muistiinpanon)
-    deactivate server
-
-    Note right of browser: Selain renderöi muistiinpanot näkyviin
+graph TD
+    A[User writes a note] --> B[Clicks Save]
+    B --> C[spa.js prevents default form action]
+    C --> D[POST /new_note_spa]
+    D --> E[Server saves the note]
+    E --> F[Server returns JSON response]
+    F --> G[spa.js updates notes list]
+    G --> H[DOM updates without reload]
